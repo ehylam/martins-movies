@@ -1,0 +1,24 @@
+{
+  "name": "martins-movies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-sass": "^3.1.0",
+    "is-windows": "^1.0.2",
+    "sass": "^1.49.9"
+  },
+  "devDependencies": {
+    "grunt": "^1.4.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

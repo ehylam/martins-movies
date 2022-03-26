@@ -1,0 +1,10 @@
+@import 'utils/reset';
+@import 'utils/include-media';
+@import 'utils/mixins';
+@import 'utils/typography';
+@import 'utils/variables';
+@import 'utils/global';
+
+@import 'components/header';
+@import 'components/content';
+@import 'components/footer';

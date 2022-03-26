@@ -1,0 +1,51 @@
+.header {
+  padding: 10px 31px;
+
+  &__logo {
+    img {
+      max-height: 38px;
+      height: 100%;
+    }
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__nav {
+    ul {
+      display: flex;
+      justify-content: space-between;
+
+      .menu-item {
+        padding: 8px;
+
+        a {
+          color: $dark-blue;
+          text-decoration: none;
+        }
+
+        &-has-children {
+          position: relative;
+
+          .sub-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 5;
+            background-color: white;
+
+            a {
+              white-space: nowrap;;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
