@@ -17,7 +17,6 @@ function theme_enqueue_scripts() {
   $style_dir = '/lib/css/styles.min.css';
   $script_dir = '/lib/js/scripts.min.js';
   wp_enqueue_style( 'theme-styles', get_template_directory_uri() . $style_dir, array(), filemtime( get_stylesheet_directory() . $style_dir));
-  wp_enqueue_script('fa-scripts', 'https://kit.fontawesome.com/02dfb62492.js', array());
   wp_enqueue_script('theme-scripts', get_template_directory_uri() . $script_dir, array(), filemtime( get_template_directory() . $script_dir));
   wp_enqueue_script( 'jquery' );
 }
@@ -25,6 +24,7 @@ function theme_enqueue_scripts() {
 
 function handle_movie_feed() {
   $MAX_PAGE = 3;
+
 
   for ($i=0; $i < $MAX_PAGE; $i++) {
     $url = 'https://api.themoviedb.org/3/movie/popular?api_key='. AUTH_KEY .'&language=en-US&page='. ($i+1);
@@ -62,7 +62,13 @@ function handle_movie_feed() {
           'movie_overview' => $movie->overview,
           'movie_release_date' => $movie->release_date,
           'movie_vote_average' => $movie->vote_average,
-          'movie_genre' => get_movie_genre($movie->id)
+          'movie_genre' => get_movie_details($movie->id, 'genres'),
+          'movie_release_date' => get_movie_details($movie->id, 'release_date'),
+          'movie_runtime' => get_movie_details($movie->id, 'runtime'),
+          'movie_country' => get_movie_details($movie->id, 'production_countries'),
+          'movie_director' => get_movie_details($movie->id, 'director'),
+          'movie_language' => get_movie_details($movie->id, 'spoken_languages'),
+          'movie_seasons' => get_movie_details($movie->id, 'number_of_seasons')
         )
       ));
     }
@@ -74,23 +80,27 @@ function handle_movie_feed() {
 // TODO: Have it run every n days or months.
 add_action( 'wp_enqueue_scripts', 'handle_movie_feed' );
 
-
-function get_movie_genre($movie_id) {
+function get_movie_details($movie_id, $type) {
   $url = 'https://api.themoviedb.org/3/movie/'. $movie_id .'?api_key='. AUTH_KEY .'&language=en-US';
   $response = wp_remote_get( $url );
   $body = wp_remote_retrieve_body( $response );
   $body_json = json_decode( $body );
-  $genres = $body_json->genres;
-  $genre_arr = array();
+  $movie_data = $body_json->$type;
 
-  foreach ($genres as $genre) {
-    array_push($genre_arr, $genre->name);
+  if($type === 'genre') {
+    $genre_arr = array();
+
+    foreach ($movie_data as $genre) {
+      array_push($genre_arr, $genre->name);
+
+      return implode(', ', $genre_arr);
+    }
   }
 
-  return implode(', ', $genre_arr);
+  return $movie_details;
+
 }
 
-// create a custom post type movies
 function create_movie_post_type() {
   register_post_type( 'movies',
     array(

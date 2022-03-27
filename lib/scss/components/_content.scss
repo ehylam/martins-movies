@@ -48,3 +48,163 @@
     }
   }
 }
+
+
+.movie_feed {
+  &__grid {
+    display: grid;
+    // grid 3 columns
+    padding: 80px 0 0;
+    grid-template-columns: 100%;
+    grid-gap: 30px;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      box-shadow: 10px 10px 40px 0 rgb(52 58 64 / 10%);
+      border-radius: 5px;
+      transform: translateY(0px);
+      transition: transform 0.4s ease;
+
+      &:hover {
+        transform: translateY(-15px);
+      }
+    }
+
+    &-thumbnail {
+      display: inline-block;
+
+      img {
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        object-position: center;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+    }
+
+    &-wrap {
+      padding: 30px;
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &-content {
+      position: relative;
+    }
+
+    &-anchor {
+      text-decoration: none;
+    }
+
+    &-title {
+      color: $blue;
+      transition: all 0.5s ease;
+      &:hover {
+        color: $purple;
+      }
+    }
+
+    &-metadata {
+      display: flex;
+      justify-content: space-between;
+      color: $medium-grey;
+      flex-wrap: wrap;
+      padding: 5px 0;
+
+      span {
+        padding: 5px 0;
+      }
+    }
+
+    &-description {
+      color: $light-purple;
+      margin-bottom: 1.7em;
+      height: 6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+    }
+
+    &-play-btn {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+      background-color: $purple;
+      box-shadow: 0 10px 30px 0 #9352b3b3;
+      transform: scale(1);
+      transition: transform 0.25s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+
+      &:after {
+        // create a triange;
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: calc(50% - 3px);
+        transform: translate(-50%, -50%) rotate(315deg);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 0 12px 12px;
+        border-color: transparent transparent white transparent;
+
+      }
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0 80px;
+
+    a,span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: $dark-blue;
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+    }
+
+    span {
+      color: white;
+      background-color: $purple;
+    }
+
+    .page-numbers {
+
+      &.dots {
+        display: none;
+
+        & + .page-numbers {
+          display: none;
+        }
+
+      }
+    }
+  }
+}

@@ -29,3 +29,7 @@
     max-width: 1140px;
   }
 }
+
+.btn {
+  @include btn;
+}
